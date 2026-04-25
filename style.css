@@ -239,14 +239,14 @@ table { border-collapse: collapse; }
 .main-content {
   margin-left: var(--sidebar-w);
   flex: 1;
-  padding: 28px 32px;
+  padding: 28px 32px 56px;
   min-height: calc(100vh - var(--header-h));
 }
 
 /* ─── SHARED CARD ─────────────────────────────────────────────────────────── */
 .card {
   border: var(--border);
-  padding: 20px;
+  padding: 20px 24px;
   background: var(--white);
 }
 
@@ -255,13 +255,13 @@ table { border-collapse: collapse; }
   font-size: 9px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--g500);
+  color: var(--g600);
   margin-bottom: 14px;
   font-weight: 600;
 }
 
 /* ─── GRIDS ───────────────────────────────────────────────────────────────── */
-.page-grid { display: grid; gap: 16px; }
+.page-grid { display: grid; gap: 20px; }
 .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 
@@ -458,13 +458,13 @@ table { border-collapse: collapse; }
 /* ─── INDICATORS ──────────────────────────────────────────────────────────── */
 .indicator { font-size: 13px; font-weight: 700; line-height: 1; }
 .ind-yes     { color: var(--black); }
-.ind-partial { color: var(--g500); }
-.ind-no      { color: var(--g400); }
-.ind-unknown { color: var(--g400); font-size: 11px; }
+.ind-partial { color: var(--g600); }
+.ind-no      { color: var(--g500); }
+.ind-unknown { color: var(--g500); font-size: 11px; }
 
 .ind-label {
   font-size: 10px;
-  color: var(--g600);
+  color: var(--g700);
   font-family: var(--mono);
 }
 
@@ -858,57 +858,76 @@ table { border-collapse: collapse; }
 
 /* ─── DARK MODE ───────────────────────────────────────────────────────────── */
 [data-theme="dark"] {
-  --black: #e0e0e0;
-  --white: #0f0f0f;
-  --g100: #191919;
-  --g150: #1e1e1e;
-  --g200: #2a2a2a;
-  --g300: #3d3d3d;
-  --g400: #666;
-  --g500: #888;
-  --g600: #aaa;
-  --g700: #ccc;
-  --border: 1px solid var(--g200);
+  /* Recalibrated scale — even spread across full luminance range */
+  --black: #ebebeb;
+  --white: #111111;
+  --g100: #1c1c1c;
+  --g150: #242424;
+  --g200: #303030;
+  --g300: #424242;
+  --g400: #5c5c5c;
+  --g500: #808080;
+  --g600: #a6a6a6;
+  --g700: #cccccc;
+  --border: 1px solid var(--g300);
   --border-strong: 1px solid var(--black);
   color-scheme: dark;
-}
-
-
-[data-theme="dark"] .sidebar-item.active {
-  background: var(--black);
-  color: var(--white);
-}
-
-[data-theme="dark"] .feat-table thead tr {
-  background: var(--g150);
-}
-
-[data-theme="dark"] .feat-table .tr-group td {
-  background: var(--g150);
-  color: var(--g700);
-}
-
-[data-theme="dark"] .vs-col-header {
-  background: var(--g150);
-}
-
-[data-theme="dark"] .sidebar-controls {
-  background: var(--white);
-  border-top-color: var(--g200);
-}
-
-[data-theme="dark"] .scale-btn.active {
-  background: var(--black);
-  color: var(--white);
-  border-color: var(--black);
-}
-
-[data-theme="dark"] .scale-btn:hover,
-[data-theme="dark"] .theme-btn:hover {
-  border-color: var(--g500);
-  color: var(--black);
 }
 
 /* ─── FONT ZOOM ───────────────────────────────────────────────────────────── */
 .main-content[data-zoom="0.9"] { zoom: 0.9; }
 .main-content[data-zoom="1.1"] { zoom: 1.1; }
+
+/* ─── DARK MODE OVERRIDES ─────────────────────────────────────────────────── */
+
+/* Surface hierarchy: page (#111) → card (g100) → inset (g200) */
+[data-theme="dark"] .card,
+[data-theme="dark"] .company-header,
+[data-theme="dark"] .verdict-card,
+[data-theme="dark"] .signal-card,
+[data-theme="dark"] .vs-column,
+[data-theme="dark"] .diff-grid,
+[data-theme="dark"] .feat-table-wrap { background: var(--g100); }
+
+[data-theme="dark"] .flow-step,
+[data-theme="dark"] .signal-list li,
+[data-theme="dark"] .data-notice,
+[data-theme="dark"] .td-arcline-val { background: var(--g200); }
+
+/* Active sidebar: inverted (light bg, dark text) */
+[data-theme="dark"] .sidebar-item.active { background: var(--black); }
+[data-theme="dark"] .sidebar-item.active .sb-name { color: var(--white); }
+[data-theme="dark"] .sidebar-item.active .sb-tag { border-color: var(--g300); color: var(--g400); }
+[data-theme="dark"] .sidebar-item.active .sb-tag-baseline { background: var(--white); color: var(--black); border-color: var(--white); }
+
+/* Sidebar controls */
+[data-theme="dark"] .sidebar-controls { background: var(--white); border-top-color: var(--g300); }
+[data-theme="dark"] .sidebar-divider-label { border-bottom-color: var(--g300); }
+
+/* Scale/theme buttons */
+[data-theme="dark"] .scale-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+[data-theme="dark"] .scale-btn:hover,
+[data-theme="dark"] .theme-btn:hover { border-color: var(--g500); color: var(--black); }
+
+/* Header */
+[data-theme="dark"] .header-sep { background: var(--g300); }
+
+/* UX grid borders */
+[data-theme="dark"] .ux-grid { border-color: var(--g300); }
+[data-theme="dark"] .ux-cell { border-right-color: var(--g300); }
+
+/* Feature table: thead and group rows use dark bg with light text */
+[data-theme="dark"] .feat-table thead tr { background: var(--g200); color: var(--black); }
+[data-theme="dark"] .feat-table .tr-group td { background: var(--g200); color: var(--g600); }
+[data-theme="dark"] .feat-table .tr-feat:hover td { background: var(--g200); }
+
+/* VS comparison columns: medium bg with explicit light text */
+[data-theme="dark"] .vs-col-header { background: var(--g300); color: var(--black); }
+[data-theme="dark"] .vs-col-badge { color: var(--g500); }
+[data-theme="dark"] .vs-col-body { background: var(--g100); }
+[data-theme="dark"] .vs-row { border-bottom-color: var(--g300); }
+[data-theme="dark"] .vs-column:first-child .vs-col-body { background: var(--g150); }
+[data-theme="dark"] .vs-column:first-child .vs-col-header { background: var(--g400); color: var(--black); }
+
+/* Diff list borders */
+[data-theme="dark"] .diff-list li { border-left-color: var(--g400); }
